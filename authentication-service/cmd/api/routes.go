@@ -17,6 +17,6 @@ func (app *Config) routes() http.Handler {
 		AllowCredentials: true,
 		MaxAge:           300,
 	}))
-	mux.Post("/", app.TEST)
+	mux.Post("/", app.Authenticate)
 	return mux
 }
