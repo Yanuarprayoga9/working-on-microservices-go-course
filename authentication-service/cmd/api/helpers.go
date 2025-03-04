@@ -8,24 +8,25 @@ import (
 )
 
 type jsonResponse struct {
-	Error   bool   `json:"error"`
-	Message string `json:"message"`
-	Data    any    `json:"data,omitempty"`
+	Error   bool        `json:"error"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data,omitempty"`
 }
 
-func (app *Config) readJSON(w http.ResponseWriter, r *http.Request, data any) error {
-	maxBytes := 1048576
+func (app *Config) readJSON(w http.ResponseWriter, r *http.Request, data interface{}) error {
+	maxBytes := 1048576 // 1 megabyte
 
-	r.Body = http.MaxBytesReader(w,r.Body, int64(maxBytes))
+	r.Body = http.MaxBytesReader(w, r.Body, int64(maxBytes))
 
 	dec := json.NewDecoder(r.Body)
 	err := dec.Decode(data)
+
 	if err != nil {
-		return  err
+		return err
 	}
 	err = dec.Decode(&struct{}{})
 	if err != io.EOF {
-		return errors.New("body must have only a single JSON value");
+		return errors.New("body must have only a single JSON value")
 	}
 	return nil
 }

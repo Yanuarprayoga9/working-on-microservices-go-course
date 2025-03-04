@@ -1,1 +1,10 @@
-POST http://localhost:8081
+### Authentication Request
+POST http://localhost:8081/handle
+Content-Type: application/json
+{
+    "action": "auth",
+    "auth": {
+        "email": "admin@example.coma",
+        "password": "verysecret"
+    }
+}
