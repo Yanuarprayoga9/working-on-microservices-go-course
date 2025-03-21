@@ -28,4 +28,3 @@ loggerServiceApp
 Caddyfile.production
 db-data
 project/db-data
-project/db-data
